@@ -22,4 +22,16 @@ using Test
     @test isdir(ConfigLH.project_dir(2018))
 end
 
+
+@testset "Directories" begin
+	newStr = "remove/this"
+	add_to_path!(newStr)
+	@test in(newStr, LOAD_PATH)
+	remove_from_path!(newStr);
+	@test !in(newStr, LOAD_PATH)
+	n = length(LOAD_PATH)
+	remove_from_path!(newStr);
+	@test length(LOAD_PATH) == n
+end
+
 # ----------
