@@ -1,5 +1,5 @@
 using ConfigLH
-using Test
+using Pkg, Test
 
 @testset "ConfigLH" begin
 	@testset "Computer" begin
@@ -33,6 +33,13 @@ using Test
 		n = length(LOAD_PATH)
 		remove_from_path!(newStr);
 		@test length(LOAD_PATH) == n
+	end
+	
+	
+	@testset "Github" begin
+		ps = ConfigLH.get_pkg_spec("ConfigLH");
+		@test isa(ps, Pkg.Types.PackageSpec)
+		
 	end
 end
 

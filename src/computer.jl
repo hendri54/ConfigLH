@@ -4,12 +4,15 @@ Assumes that all computers only differ in a single base dir, such as '/Users/lut
 =#
 @enum Computer ComputerLocal = 1 ComputerLongleaf = 2
 
+const localBaseDir = "/Users/lutz"
+const longleafBaseDir = "/nas/longleaf"
+
 
 # Computer we are running on
 function current_computer()
-    if isdir("/Users/lutz")
+    if isdir(localBaseDir)
         return ComputerLocal
-    elseif isdir("/nas/longleaf")
+    elseif isdir(longleafBaseDir)
         return ComputerLongleaf
     else
         error("Invalid computer")
@@ -38,12 +41,6 @@ mutable struct ComputerInfo
 end
 #
 
-# How to define a constructor that initializes all the dependent fields?
-# Don't! write a function that returns an initialized computer object
-
-# Document This
-# also how to organize module code
-
 # Settings for each computer are collected here
 function computer_info(compId  ::  Computer)
     cS = ComputerInfo(compId)
@@ -51,11 +48,11 @@ function computer_info(compId  ::  Computer)
 
     if compId == ComputerLocal
         cS.compName = "Local"
-        cS.baseDir = "/Users/lutz"
+        cS.baseDir = localBaseDir;
         cS.runLocal = true
     elseif compId == ComputerLongleaf
         cS.compName = "Longleaf"
-        cS.baseDir = "/nas/longleaf"
+        cS.baseDir = longleafBaseDir;
     else
         error("invalid")
     end
@@ -79,10 +76,16 @@ function docu_dir()
 end
 
 
-## Dirs hanging off Documents
+## Dirs hanging off Documents (at least on local)
 
+# Repos live here
 function julia_dir(compId :: Computer)
-    return joinpath(docu_dir(compId), "julia")
+	ci = computer_info(compId);
+	if ci.runLocal
+	    return joinpath(docu_dir(compId), "julia")
+	else
+	    return joinpath(homedir(), "julia")
+	end
 end
 
 function julia_dir()
