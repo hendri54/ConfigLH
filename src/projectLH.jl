@@ -42,6 +42,12 @@ function project_dir(pYear :: Integer)
 end
 
 
+## Development directory, where code should reside for unregistered packages
+function dev_dir()
+	return ENV["JULIA_PKG_DEVDIR"]
+end
+
+
 """
 Start a project
 
