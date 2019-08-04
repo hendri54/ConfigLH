@@ -1,6 +1,3 @@
-module ProjectLH
-
-using ConfigLH
 import Base.show
 export project_start
 
@@ -85,7 +82,7 @@ Newest at the top
 """
 function get_project(pName :: AbstractString)
     if pName == "test"
-        progDir = ConfigLH.shared_dir();
+        progDir = shared_dir();
         proj = Project(pName, progDir, shared_dirs())
 	elseif pName in ["ConfigLH", "CommonLH", "ModelParams", "EconLH"]
     	progDir = joinpath(dev_dir(), pName)
@@ -104,4 +101,4 @@ function get_project(pName :: AbstractString)
 end
 
 
-end # module
+# ------------
