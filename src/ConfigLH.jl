@@ -5,30 +5,7 @@ using Pkg, Printf
 export add_to_path!, remove_from_path!, shared_dir, test_dir
 
 include("computer.jl")
-
-
-## --------- Github related
-
-# Paths to my unregistered packages
-const githubUrl = "https://github.com/hendri54/";
-
-"""
-get_pkg_spec
-
-Make a `PackageSpec` for one of my packages
-"""
-function get_pkg_spec(pkgName :: String)
-    return PackageSpec(name = pkgName,  url = githubUrl * pkgName);
-end
-
-"""
-add_package
-
-Apply `Pkg.add` for one of my packages
-"""
-function add_package(pkgName :: String)
-    Pkg.add(get_pkg_spec(pkgName))
-end
+include("package.jl")
 
 
 """
@@ -56,5 +33,7 @@ function remove_from_path!(newDir :: String)
 	end
 	return nothing
 end
+
+include("projectLH.jl")
 
 end # module

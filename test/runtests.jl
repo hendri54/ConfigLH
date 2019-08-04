@@ -39,8 +39,9 @@ using Pkg, Test
 	@testset "Github" begin
 		ps = ConfigLH.get_pkg_spec("ConfigLH");
 		@test isa(ps, Pkg.Types.PackageSpec)
-		
 	end
+	
+	include("project_test.jl")
 end
 
 # ----------
